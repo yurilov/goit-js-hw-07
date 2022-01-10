@@ -1,6 +1,6 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 
-const galleryRef = document.querySelector('.gallery');
+const galleryRef = document.querySelector(".gallery");
 
 function createGallery(items) {
   for (const item of items) {
@@ -15,28 +15,34 @@ function createGallery(items) {
     </a>
   </div>`;
 
-    galleryRef.insertAdjacentHTML('beforeend', markup);
+    galleryRef.insertAdjacentHTML("beforeend", markup);
   }
 }
 
 createGallery(galleryItems);
 
-galleryRef.addEventListener('click', selectImage);
+galleryRef.addEventListener("click", selectImage);
 
 function selectImage(event) {
   event.preventDefault();
 
-  if (event.target.nodeName !== 'IMG') {
+  if (event.target.nodeName !== "IMG") {
     return;
   }
 
   const largeImage = event.target.dataset.source;
 
-  basicLightbox
-    .create(
-      `
+  const modal = basicLightbox.create(
+    `
 		<img width="1280" height="854" src="${largeImage}">
 	`
-    )
-    .show();
+  );
+
+  modal.show();
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.visible()) {
+      modal.close();
+    }
+  });
 }
