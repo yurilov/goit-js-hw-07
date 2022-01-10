@@ -26,13 +26,17 @@ galleryRef.addEventListener('click', selectImage);
 function selectImage(event) {
   event.preventDefault();
 
-  if (event.target.nodeName !== "IMG") {
+  if (event.target.nodeName !== 'IMG') {
     return;
   }
-  console.log(event.target.nodeName)
+
   const largeImage = event.target.dataset.source;
-  console.log(largeImage);
-  basicLightbox.create(`
+
+  basicLightbox
+    .create(
+      `
 		<img width="1280" height="854" src="${largeImage}">
-	`).show();
+	`
+    )
+    .show();
 }
